@@ -1,0 +1,16 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: snap-builder
+    password: "$6$exDY1mhS4KUYCE/2$zmn9ToZwTKLhCw.b4/b.ZRTIZM30JZ4QrOQ2aOXJ8yk96xpcCof0kxKwuX1kqLG/ygbJ1f8wxED22bTL4F46P0"
+    username: ubuntu
+  locale: de_DE
+  keyboard:
+    layout: de
+  ssh:
+    install-server: true
+    allow_pw: true
+  snaps:
+    - name: snapcraft
+      classic: true
