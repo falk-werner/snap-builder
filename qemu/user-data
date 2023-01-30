@@ -11,6 +11,6 @@ autoinstall:
   ssh:
     install-server: true
     allow_pw: true
-  snaps:
-    - name: snapcraft
-      classic: true
+  late-commands:
+    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/ubuntu

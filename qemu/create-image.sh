@@ -53,11 +53,12 @@ cloud-localds build/seed.iso user-data meta-data
 
 KVM_OPTIONS=""
 if which kvm-ok > /dev/null && kvm-ok > /dev/null ; then
-KVM_OPTIONS="-enable-kvm -cpu host"
+#KVM_OPTIONS="-enable-kvm -cpu host"
+KVM_OPTIONS="-enable-kvm"
 fi
 
 qemu-system-x86_64 -no-reboot -smp 2 -m 4G \
-	$(KVM_OPTIONS) \
+	${KVM_OPTIONS} \
 	-drive file=build/snap-builder.img,format=raw,cache=none,if=virtio \
 	-drive file=build/seed.iso,format=raw,cache=none,if=virtio \
 	-cdrom build/ubuntu-22.10-live-server-amd64.iso \
@@ -67,3 +68,25 @@ qemu-system-x86_64 -no-reboot -smp 2 -m 4G \
 	-nographic \
 	-serial mon:stdio
 
+# run new image in background
+
+qemu-system-x86_64 -no-reboot -smp 2 -m 4G \
+	${KVM_OPTIONS} \
+	-net nic \
+	-net user,hostfwd=tcp::8022-:22 \
+	-drive file=build/snap-builder.img,format=raw,cache=none,if=virtio \
+	-nographic &
+
+# wait until image is booted
+
+sleep 60
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[127.0.0.1]:8022"
+
+# finalize installation
+
+sshpass -p ubuntu ssh -o StrictHostKeyChecking=accept-new ubuntu@127.0.0.1 -p 8022 sudo bash -s < prepare.sh
+
+# quit qemu
+
+sshpass -p ubuntu ssh ubuntu@127.0.0.1 -p 8022 sudo reboot
+wait

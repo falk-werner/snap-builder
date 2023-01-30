@@ -1,26 +1,12 @@
 # snap-builder
 
-Setup an VM for building snaps.
+Setup a build environment to create snaps.
 
-## Build
-
-    ./create-image.sh
-    ./first-boot.sh
-
-## Run
-
-    ./run.sh
-
-## Dependencies
-
-- cloud-image-utils
-- genisoimage
-- qemu-system-x86
-- wget
-- kvm _(optional)_
+- [qemu](qemu)
 
 ## References
 
-- (https://ubuntu.com/server/docs/install/autoinstall)[https://ubuntu.com/server/docs/install/autoinstall]
-- (https://cloudinit.readthedocs.io/en/latest/reference/examples.html)[https://cloudinit.readthedocs.io/en/latest/reference/examples.html]
-- (https://leftasexercise.com/2020/04/12/understanding-cloud-init/)[https://leftasexercise.com/2020/04/12/understanding-cloud-init/]
+- [https://github.com/ogra1/snapd-docker](https://github.com/ogra1/snapd-docker)
+- [https://ubuntu.com/server/docs/install/autoinstall](https://ubuntu.com/server/docs/install/autoinstall)
+- [https://cloudinit.readthedocs.io/en/latest/reference/examples.html](https://cloudinit.readthedocs.io/en/latest/reference/examples.html)
+- [https://leftasexercise.com/2020/04/12/understanding-cloud-init/](https://leftasexercise.com/2020/04/12/understanding-cloud-init/)
