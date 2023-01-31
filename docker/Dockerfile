@@ -1,5 +1,5 @@
 ARG REGISTRY_PREFIX=''
-ARG CODENAME='jammy'
+ARG CODENAME='focal'
 
 FROM ${REGISTRY_PREFIX}ubuntu:${CODENAME} as builder
 
@@ -23,8 +23,9 @@ RUN dpkg-divert --local --rename --add /sbin/udevadm \
 
 RUN systemctl enable snapd
 
-VOLUME ["/sys/fs/cgroup"]
+ADD systemd-detect-virt /usr/bin/
+ADD entrypoint.sh /bin/
 
 STOPSIGNAL SIGRTMIN+3
 
-CMD ["/sbin/init"]
+ENTRYPOINT ["/bin/entrypoint.sh"]
