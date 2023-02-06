@@ -1,5 +1,0 @@
-#!/bin/sh
-
-if [ "$1" != "--quiet" ]; then
-    echo -n wsl
-fi

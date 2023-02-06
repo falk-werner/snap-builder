@@ -34,7 +34,6 @@ ADD user-command.service /etc/systemd/system/
 RUN systemctl enable user-command.service
 RUN mkdir -p /data
 
-ADD systemd-detect-virt /usr/bin/
 ADD entrypoint.sh /bin/
 
 STOPSIGNAL SIGRTMIN+3
