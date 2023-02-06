@@ -12,12 +12,14 @@ if ! which snapcraft > /dev/null ; then
 snap install --classic snapcraft
 snap install --classic ubuntu-image
 else
+USER_ID=\$(stat -c '%u' /data)
+GROUP_ID=\$(stat -c '%g' /data)
 bash
+chown "\$USER_ID:\$GROUP_ID" -R /data
 fi
 
 systemctl exit \$?
 EOF
 chmod +x /usr/local/bin/user_command.sh
 
-#exec /sbin/init
 exec /lib/systemd/systemd --system --system-unit user-command.service
