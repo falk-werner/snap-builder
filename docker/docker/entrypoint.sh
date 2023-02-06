@@ -8,8 +8,6 @@ mount -t tmpfs tmpfs /run/lock
 cat > /usr/local/bin/user_command.sh << EOF
 #!/bin/bash
 
-trap "echo hup" HUP
-
 if ! which snapcraft > /dev/null ; then
 snap install --classic snapcraft
 snap install --classic ubuntu-image
