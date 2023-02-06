@@ -21,7 +21,18 @@ RUN apt update \
 RUN dpkg-divert --local --rename --add /sbin/udevadm \
     && ln -s /bin/true /sbin/udevadm
 
+
+# disable most systemd console output
+RUN echo ShowStatus=no >> /etc/systemd/system.conf
+
+# set basic.target as default
+RUN systemctl set-default basic.target
+
 RUN systemctl enable snapd
+
+ADD user-command.service /etc/systemd/system/
+RUN systemctl enable user-command.service
+RUN mkdir -p /data
 
 ADD systemd-detect-virt /usr/bin/
 ADD entrypoint.sh /bin/
