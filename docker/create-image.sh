@@ -9,15 +9,11 @@ docker run \
     --name=snap-builder-pre \
     --privileged \
     --tmpfs /tmp \
-    --cap-add SYS_ADMIN \
+    --tmpfs /run \
+    --tmpfs /run/lock \
     --device=/dev/fuse \
-    --security-opt apparmor:unconfined \
-    --security-opt seccomp:unconfined \
     snap-builder-pre
 
 docker commit snap-builder-pre snap-builder
-
-docker stop snap-builder-pre
-sleep 5
 docker rm snap-builder-pre
 

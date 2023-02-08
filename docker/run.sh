@@ -6,9 +6,8 @@ docker run \
     -v $PWD:/data \
     --privileged \
     --tmpfs /tmp \
-    --cap-add SYS_ADMIN \
+    --tmpfs /run \
+    --tmpfs /run/lock \
     --device=/dev/fuse \
-    --security-opt apparmor:unconfined \
-    --security-opt seccomp:unconfined \
     snap-builder
 
