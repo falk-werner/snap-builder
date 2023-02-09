@@ -11,4 +11,5 @@
 ## References
 
 - [https://github.com/ogra1/snapd-docker](https://github.com/ogra1/snapd-docker)
-- [https://github.com/diddlesnaps/snapcraft-container](https://github.com/diddlesnaps/)
+- [https://github.com/diddlesnaps/snapcraft-container](https://github.com/diddlesnaps/snapcraft-container)
+- [https://snapcraft.io/docs/build-on-docker](https://snapcraft.io/docs/build-on-docker)

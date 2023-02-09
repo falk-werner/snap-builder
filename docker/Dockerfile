@@ -33,6 +33,7 @@ RUN systemctl enable user-command.service
 RUN mkdir -p /data
 
 ADD entrypoint.sh /bin/
+ADD install-snapcraft.sh /usr/local/bin/
 
 STOPSIGNAL SIGRTMIN+3
 
