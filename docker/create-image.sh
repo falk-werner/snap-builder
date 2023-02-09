@@ -15,7 +15,7 @@ docker run \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     --security-opt apparmor:unconfined \
     --security-opt seccomp:unconfined  \
-    snap-builder-pre
+    snap-builder-pre init
 
 #    --privileged \
 
