@@ -1,16 +1,21 @@
 #!/bin/bash
 
-if which sysbox-runc > /dev/null ; then
-DOCKER_FLAGS="--runtime sysbox-runc"
+if which podman > /dev/null ; then
+    DOCKER="podman"
+    DOCKER_FLAGS="-v /sys/fs/cgroup:/sys/fs/cgroup:ro"
 else
-DOCKER_FLAGS=\
-    "-v /sys/fs/cgroup:/sys/fs/cgroup:ro \
-    --security-opt apparmor:unconfined \
-    --security-opt seccomp:unconfined"
+    DOCKER="docker"
+
+    if which sysbox-runc > /dev/null ; then
+        DOCKER_FLAGS="--runtime sysbox-runc"
+    else
+        DOCKER_FLAGS="-v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+            --security-opt apparmor:unconfined \
+            --security-opt seccomp:unconfined"
+    fi
 fi
 
-
-docker run \
+$DOCKER run \
     -it \
     --rm \
     -v $PWD:/data \
