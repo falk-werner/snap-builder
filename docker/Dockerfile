@@ -21,10 +21,25 @@ RUN apt update \
 RUN dpkg-divert --local --rename --add /sbin/udevadm \
     && ln -s /bin/true /sbin/udevadm
 
+RUN rm -f \
+		/etc/systemd/system/*.wants/* \
+		/lib/systemd/system/local-fs.target.wants/* \
+		/lib/systemd/system/multi-user.target.wants/* \
+		/lib/systemd/system/sockets.target.wants/*initctl*
+
+RUN find \
+		/lib/systemd/system/sysinit.target.wants \
+		\( -type f -or -type l \) -and -not -name '*systemd-tmpfiles-setup*' \
+		-delete
+
+RUN rm -f /lib/systemd/system/systemd-update-utmp-runlevel.service
+RUN rm -vf /usr/share/systemd/tmp.mount
 
 RUN echo ShowStatus=no >> /etc/systemd/system.conf
 
 RUN systemctl set-default basic.target
+
+RUN systemctl disable ondemand.service
 
 RUN systemctl enable snapd
 
